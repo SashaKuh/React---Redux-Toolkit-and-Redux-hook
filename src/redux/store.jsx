@@ -2,7 +2,7 @@ import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { FilterSlice } from './filterSlice';
-import { ContactsSlice } from './contactsSlice'
+import { contactsSlice } from './contactsSlice'
 
 const persistConfig = {
   key: 'contacts',
@@ -10,7 +10,7 @@ const persistConfig = {
   whitelist: ['contactList'],
 };
 
-const persistedContacts = persistReducer(persistConfig, ContactsSlice.reducer);
+const persistedContacts = persistReducer(persistConfig, contactsSlice.reducer);
 
 const middleware = [
   ...getDefaultMiddleware({

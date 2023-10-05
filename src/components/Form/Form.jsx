@@ -9,7 +9,8 @@ import {
     ButtonSubmit
 } from './Form.styled';
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { addContact } from 'redux/contactsSlice';
 
 const contactSchema = Yup.object().shape({
     name: Yup.string()
@@ -26,8 +27,9 @@ const contactSchema = Yup.object().shape({
         .required('Required'),
 });
 
-const Form = ({ onSubmit }) => {
+const Form = () => {
     const contacts = useSelector(state => state.contacts.contactList);
+    const dispatch = useDispatch();
 
     return (
         <>
@@ -45,7 +47,7 @@ const Form = ({ onSubmit }) => {
                 } else if (contacts.some(contact => contact.number === number)) {
                   alert(`Contact with number "${number}" already exists!`);
                 } else {
-                  onSubmit(values);
+                  dispatch(addContact(values));
                   resetForm();
                 }
             }}
