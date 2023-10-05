@@ -3,7 +3,7 @@ import Form from './components/Form/Form';
 import MemoizedContactList from './components/ContactsList/ContactsList';
 import Filter from './components/Filter/Filter';
 import { Title } from './App.styled';
-import { useContactActions } from './components/ContactsAction/ContactsAction'; 
+import { useContactActions } from './components/Form/Form'; 
 
 export default function App() {
   const { contacts, filter, handleAddContact } = useContactActions(); 
