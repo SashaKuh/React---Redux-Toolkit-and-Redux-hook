@@ -1,28 +1,20 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { setFilterValue } from 'redux/FilterSlice/FilterSlice';
+import { setFilterValue } from 'redux/filterSlice';
+import { FilterForm } from './Filter.styled';
 
 function Filter() {
   const dispatch = useDispatch();
 
-  const setFilterData = (e) => {
-    if (e.currentTarget) {
-      const { value } = e.currentTarget;
-      const valueLowercase = value.toLowerCase();
-      dispatch(setFilterValue(valueLowercase));
-    }
-  };
-
   return (
-    <div style={{ minWidth: '350px', maxWidth: '500px', gap: '10px', margin: '0 auto' }}>
-      <label htmlFor="filter">Filter</label>
+    <FilterForm>
+      <label htmlFor="find">Find contacts by name:</label>
       <input
-        id="filter"
-        type="search"
-        pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-        onChange={setFilterData}
+        type="text"
+        name="find"
+        onChange={e => dispatch(setFilterValue(e.target.value.toLowerCase()))}
       />
-    </div>
+    </FilterForm>
   );
 }
 

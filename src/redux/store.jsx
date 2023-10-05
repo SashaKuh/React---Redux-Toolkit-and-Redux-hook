@@ -1,8 +1,8 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import { FilterSlice } from '../FilterSlice/FilterSlice';
-import { ContactsSlice } from '../ContactsSlice/ContactsSlice'
+import { FilterSlice } from './filterSlice';
+import { ContactsSlice } from './contactsSlice'
 
 const persistConfig = {
   key: 'contacts',

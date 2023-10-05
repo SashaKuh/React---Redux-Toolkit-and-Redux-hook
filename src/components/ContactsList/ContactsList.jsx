@@ -1,8 +1,9 @@
 import React, { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteContact } from 'redux/ContactsSlice/ContactsSlice';
+import { deleteContact } from 'redux/contactsSlice';
+import { getFilter} from 'redux/selector';
 
-import { ContactListStyled, ListElement, Btn } from './ContactsList.styled'
+import { ContactListStyled, ListElement, Btn } from './ContactsList.styled';
 
 const getFilteredContacts = (contacts, filterValue) =>
   contacts.filter(el => el.name.toLowerCase().includes(filterValue));
@@ -10,7 +11,9 @@ const getFilteredContacts = (contacts, filterValue) =>
 const ContactList = React.memo(() => {
   const dispatch = useDispatch();
   const contactsRedux = useSelector(state => state.contacts.contactList);
-  const filterValue = useSelector(state => state.filter);
+  const filterValue = useSelector(getFilter);
+
+  
 
   const contactsArr = useMemo(
     () => getFilteredContacts(contactsRedux, filterValue),
