@@ -13,23 +13,6 @@ import { addContact } from 'redux/contactsSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { getContacts, getFilter } from 'redux/selector';
 
-export const useContactActions = () => {
-  const contacts = useSelector(getContacts);
-  const filter = useSelector(getFilter);
-  const dispatch = useDispatch();
-
-  const handleAddContact = (values) => {
-    dispatch(addContact(values));
-  };
-
-  return {
-    contacts,
-    filter,
-    handleAddContact,
-  };
-};
-
-
 const contactSchema = Yup.object().shape({
     name: Yup.string()
         .min(2, 'Too Short!')
@@ -45,9 +28,31 @@ const contactSchema = Yup.object().shape({
         .required('Required'),
 });
 
+export const useContactActions = () => {
+  const contacts = useSelector(getContacts);
+  const filter = useSelector(getFilter);
+  return {
+    contacts,
+    filter
+  }
+}
+
 const Form = () => {
     const contacts = useSelector(state => state.contacts.contactList);
     const dispatch = useDispatch();
+
+    const handleAddContact = (values, resetForm) => {
+        const { name, number } = values;
+
+        if (contacts.some(contact => contact.name === name)) {
+          alert(`Contact with name "${name}" already exists!`);
+        } else if (contacts.some(contact => contact.number === number)) {
+          alert(`Contact with number "${number}" already exists!`);
+        } else {
+          dispatch(addContact(values));
+          resetForm();
+        }
+    };
 
     return (
         <>
@@ -57,18 +62,7 @@ const Form = () => {
                 number: '',
             }}
             validationSchema={contactSchema}
-            onSubmit={(values, { resetForm }) => {
-                const { name, number } = values;
-
-                if (contacts.some(contact => contact.name === name)) {
-                  alert(`Contact with name "${name}" already exists!`);
-                } else if (contacts.some(contact => contact.number === number)) {
-                  alert(`Contact with number "${number}" already exists!`);
-                } else {
-                  dispatch(addContact(values));
-                  resetForm();
-                }
-            }}
+            onSubmit={(values, { resetForm }) => handleAddContact(values, resetForm)}
             >
             {() => (
                 <FormStyled>

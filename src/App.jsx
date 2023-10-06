@@ -6,13 +6,13 @@ import { Title } from './App.styled';
 import { useContactActions } from './components/Form/Form'; 
 
 export default function App() {
-  const { contacts, filter, handleAddContact } = useContactActions(); 
+  const { contacts, filter } = useContactActions(); 
 
   return (
     <React.Fragment>
       <Title>Phonebook</Title>
 
-      <Form onSubmit={handleAddContact} />
+      <Form />
 
       {contacts.length > 1 || filter !== '' ? <Filter /> : null}
 
