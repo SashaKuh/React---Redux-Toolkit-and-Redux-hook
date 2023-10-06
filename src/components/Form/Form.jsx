@@ -11,7 +11,6 @@ import {
 
 import { addContact } from 'redux/contactsSlice';
 import { useSelector, useDispatch } from 'react-redux';
-import { getContacts, getFilter } from 'redux/selector';
 
 const contactSchema = Yup.object().shape({
     name: Yup.string()
@@ -27,15 +26,6 @@ const contactSchema = Yup.object().shape({
         )
         .required('Required'),
 });
-
-export const useContactActions = () => {
-  const contacts = useSelector(getContacts);
-  const filter = useSelector(getFilter);
-  return {
-    contacts,
-    filter
-  }
-}
 
 const Form = () => {
     const contacts = useSelector(state => state.contacts.contactList);

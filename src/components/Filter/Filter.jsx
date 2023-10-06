@@ -3,6 +3,18 @@ import { useDispatch } from 'react-redux';
 import { setFilterValue } from 'redux/filterSlice';
 import { FilterForm } from './Filter.styled';
 
+import { getContacts, getFilter } from 'redux/selector';
+import { useSelector } from 'react-redux';
+
+export const useContactActions = () => {
+  const contacts = useSelector(getContacts);
+  const filter = useSelector(getFilter);
+  return {
+    contacts,
+    filter
+  }
+}
+
 function Filter() {
   const dispatch = useDispatch();
 
